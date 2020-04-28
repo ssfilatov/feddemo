@@ -1,0 +1,9 @@
+apiVersion: multiclusterdns.kubefed.io/v1alpha1
+kind: IngressDNSRecord
+metadata:
+  name: demo-ingress-record
+  namespace: demo
+spec:
+  hosts:
+  - helloworld.demo.com
+  recordTTL: 300

@@ -1,0 +1,10 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  values:
+    global:
+      multiCluster:
+        clusterName: istioawsshared
+      network: remote
+
+      remotePilotAddress: 89.208.208.214

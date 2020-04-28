@@ -1,0 +1,60 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedService
+metadata:
+  name: helloworld
+  namespace: demo
+  labels:
+    app: helloworld
+spec:
+  template:
+    spec:
+      selector:
+        app: helloworld
+      type: LoadBalancer
+      ports:
+        - name: http
+          port: 5000
+  placement:
+    clusters:
+    - name: kubefedawshost
+    - name: kubefedawsmember
+---
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedDeployment
+metadata:
+  name: helloworld
+  namespace: demo
+  labels:
+    version: v1
+spec:
+  template:
+    metadata:
+      labels:
+        app: helloworld
+        version: v1
+    spec:
+      replicas: 2
+      selector:
+        matchLabels:
+          app: helloworld
+          version: v1
+      template:
+        metadata:
+          labels:
+            app: helloworld
+            version: v1
+        spec:
+          containers:
+          - image: docker.io/istio/examples-helloworld-v1
+            name: helloworld
+            ports:
+            - containerPort: 5000
+  placement:
+    clusters:
+    - name: kubefedawshost
+    - name: kubefedawsmember
+  overrides:
+  - clusterName: kubefedawsmember
+    clusterOverrides:
+    - path: "/spec/template/spec/containers/0/image"
+      value: "docker.io/istio/examples-helloworld-v2"

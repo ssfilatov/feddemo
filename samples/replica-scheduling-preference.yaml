@@ -1,0 +1,14 @@
+apiVersion: scheduling.kubefed.io/v1alpha1
+kind: ReplicaSchedulingPreference
+metadata:
+  name: helloworld
+  namespace: demo
+spec:
+  targetKind: FederatedDeployment
+  clusters:
+    kubefedawsmember:
+      weight: 3
+    kubefedawshost:
+      weight: 1
+  rebalance: true
+  totalReplicas: 12

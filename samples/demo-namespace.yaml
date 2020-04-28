@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo
+---
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedNamespace
+metadata:
+  name: demo
+  namespace: demo
+spec:
+  placement:
+    clusters:
+    - name: kubefedawshost
+    - name: kubefedawsmember

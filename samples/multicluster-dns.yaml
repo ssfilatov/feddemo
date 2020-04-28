@@ -1,0 +1,15 @@
+apiVersion: multiclusterdns.kubefed.io/v1alpha1
+kind: Domain
+metadata:
+  name: demo-domain
+  namespace: kube-federation-system
+domain: demo.com
+---
+apiVersion: multiclusterdns.kubefed.io/v1alpha1
+kind: ServiceDNSRecord
+metadata:
+  name: helloworld
+  namespace: demo
+spec:
+  domainRef: demo-domain
+  recordTTL: 300
